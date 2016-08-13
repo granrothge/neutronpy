@@ -3,7 +3,7 @@
 Created on Wed Jul  6 11:06:01 2016
 
 @author: G. E. Granroth
-@affilitation : ORNL
+@affiliation : ORNL
 """
 import matplotlib.pyplot as plt
 import matplotlib.colors as mpl_c

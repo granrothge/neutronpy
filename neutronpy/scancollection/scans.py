@@ -15,8 +15,17 @@ class scans:
     """
     def __init__(self,scans_dict=None):        
         self.scans=scans_dict
-        self.num_scans=len(scans_dict)
+        if scans_dict!=None:
+          self.num_scans=len(scans_dict)
 
+    def update(self,scans_dict):
+        """
+        update the scans_dict to incldue the dictionary scans_dict
+        This will update any scans that are already in the class and will append those that are not
+        """
+        self.scans.update(scans_dict)
+        self.num_scans=len(scans_dict)
+    
     def scans_check(self):
         """
         check to see if the scans are populated

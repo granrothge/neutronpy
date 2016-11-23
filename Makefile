@@ -47,6 +47,9 @@ test-spurion:
 test-structure-factors:
 	pytest -v -x tests/test_structure_factors.py
 
+test-scancollection:
+	pytest -v -x tests/test_scancollection.py
+
 test-symmetry:
 	pytest -v -x tests/test_symmetry.py
 

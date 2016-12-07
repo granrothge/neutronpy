@@ -20,22 +20,50 @@ class scans:
           self.num_scans=len(scans_dict)
 
     def update(self,scans_dict):
-        """
-        update the scans_dict to incldue the dictionary scans_dict
+        r"""
+        update the scans_dict to include the dictionary scans_dict
         This will update any scans that are already in the class and will append those that are not
+        
+        Parameters
+        ----------
+        scans_dict: dict
+              A dictionary of multiple scans to add to the collection
         """
         self.scans.update(scans_dict)
         self.num_scans=len(scans_dict)
     
     def scans_check(self):
-        """
-        check to see if the scans are populated
+        r"""
+        Check to see if their are scans in the object
+        
+        This should be used for other methods that work on individual scans in the collection
+        
+        Raises
+        ------
+        RuntimeError
+             if there are no scans
         """
         if self.scans==None:
             raise RuntimeError('There must be at lest one scan') 
     def waterfall(self,x='e',y='detector',label_column='h',offset=5,fmt='b-',legend=False):
-        """
-        create a waterfall plot of all the scans in the collection
+       r"""
+        Create a waterfall plot of all the scans in the collection
+        
+        Parameters
+        ----------
+          x: string
+             one of the columns that is in each scan to plot on the x axis
+          y: string
+             one of the columns that is in each scan to plot on the y axis
+             default is 'detector'
+          label_column: string
+             one of the columns that is in each scan to label each seperate scan in the plot
+          offest: float
+             how much to offset, in y, each successive curve from the previous one
+          fmt: string
+             a matplotlib format string for the plot.  The default is a blue line 'b-'
+          legend: bool
+             a flag to plot a legend default is False which will not plot a legend
         """
         self.scans_check()  
         fh=plt.figure()
@@ -63,8 +91,28 @@ class scans:
         return col_mean 
             
     def pcolor(self,x=None,z='detector',y=None,clims=None,color_norm=None,cmap='jet'):
-        """
-        create a pcolor for a group of scans.  The y direction is always waht varies between scans.
+        r"""
+        create a false colormap for a coloction of scans.  
+        
+        The y direction is always what varies between scans.
+        
+        Parameters
+        ----------
+           x: string
+             one of the columns that is in each scan to plot on the x axis
+           z: string
+             one of the columns that is in each scan to plot on the z axis
+             default is 'detector'
+           y: one of the columns that is in each scan to plot on the y axis.
+              this is the parameter that varies between scans, but is cosntant over a given scan.
+           clims: array_like
+              this is an array of two floats.  The first is the minimum color scale, 
+              the second is the maximum of the color scale.  By default the maximum and minimum are chosen
+           color_norm: string
+                if the color scale is on a log or linear scale. Default is linear.  'log' is logscale
+                any other string is linear
+           cmap: string
+              one of the matplot lib colormaps.  The default is jet.
         
         """
         self.scans_check()

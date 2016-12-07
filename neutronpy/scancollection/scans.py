@@ -46,7 +46,7 @@ class scans:
         if self.scans==None:
             raise RuntimeError('There must be at lest one scan') 
     def waterfall(self,x='e',y='detector',label_column='h',offset=5,fmt='b-',legend=False):
-       r"""
+        r"""
         Create a waterfall plot of all the scans in the collection
         
         Parameters

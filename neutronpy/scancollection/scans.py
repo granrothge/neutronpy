@@ -11,8 +11,25 @@ import numpy as np
 
 
 class scans:
-    """
+    r"""
     A class for a collection of scans
+    
+    Attributes
+    ----------
+    scans: dict
+        A dictionary of scan objects
+    num_scans: int
+        The number of scans
+        
+    Methods
+    ------- 
+    waterfall(self,x='e',y='detector',label_column='h',offset=5,fmt='b-',legend=False)
+          Makes a waterfall plot of the scan collection
+    
+    pcolor(self,x=None,z='detector',y=None,clims=None,color_norm=None,cmap='jet')
+          Makes a false color contour plot of the scan collection
+        
+        
     """
     def __init__(self,scans_dict=None):        
         self.scans=scans_dict
@@ -171,7 +188,5 @@ class scans:
         plt.show(block=False)
             
         #return intens_min, intens_max          
-            
-            
             
             

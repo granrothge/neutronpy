@@ -81,9 +81,19 @@ class scans:
         plt.show(block=False)
     
     def mean_col(self,col=None):
-        """ 
-        take the mean of a given column in every data set
-        requires a column name
+        r""" 
+        Take the mean of a given column in every scan of the collection
+        
+        Parameters
+        ----------
+        col: string
+           The name of the column for the mean
+        
+        Returns
+        -------
+        array_like
+            an array where each element is the average of the column of a specific
+            scan in the collection
         """
         col_mean=np.zeros(self.num_scans)        
         for idx, scan_num in enumerate(self.scans.keys()):

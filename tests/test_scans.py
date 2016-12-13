@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Nov 23 10:19:38 2016
+r""" testing of a collection of scans
 
-@author: 19g
 """
 
-import neutronpy.scancollection.scans as npysc
+import neutronpy.data.scans as npysc
 import neutronpy.fileio as npyio
 import os
 import pytest
@@ -19,32 +17,32 @@ def load_scans(start,stop):
     Creates a dictionary of scans for use in other test functions
     """
     scansin={}
-    try:  
-      for idx in range(start,stop+1): 
+    try:
+      for idx in range(start,stop+1):
          scansin[idx]=npyio.load_data(os.path.join(os.path.dirname(__file__),'filetypes/HB1A/HB1A_exp0718_scan0%d.dat'%idx))
-      return scansin   
-    except: 
+      return scansin
+    except:
       pytest.failed('scan load failed in scan collection test')
-    
+
 
 def test_scans_init():
   scansin=load_scans(222,243)
-  
+
   try:
       npysc.scans(scans_dict=scansin)
   except:
       pytest.failed('could not build scan collection')
-      
+
 @patch('matplotlib.pyplot.show')
 def test_pcolor(mock_show):
     """
     test pcolor plotting
-    """    
+    """
     scansin=load_scans(222,243)
     s_obj=npysc.scans(scans_dict=scansin)
     s_obj.pcolor(x='l',y='coldtip')
-    
-@patch('matplotlib.pyplot.show')    
+
+@patch('matplotlib.pyplot.show')
 
 def test_waterfall(mock_show):
     """
@@ -53,4 +51,3 @@ def test_waterfall(mock_show):
     scansin=load_scans(222,243)
     s_obj=npysc.scans(scans_dict=scansin)
     s_obj.waterfall(x='l',label_column='coldtip',offset=5000)
-   

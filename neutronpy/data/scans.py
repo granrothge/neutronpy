@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jul  6 11:06:01 2016
+r"""
+A class for handeling a collection of scans
 
-@author: G. E. Granroth
-@affiliation : ORNL
 """
 import matplotlib.pyplot as plt
 import matplotlib.colors as mpl_c

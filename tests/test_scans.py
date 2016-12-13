@@ -3,7 +3,7 @@ r""" testing of a collection of scans
 
 """
 
-import neutronpy.data.scans as npysc
+import neutronpy.data as npysc
 import neutronpy.fileio as npyio
 import os
 import pytest
@@ -29,7 +29,7 @@ def test_scans_init():
   scansin=load_scans(222,243)
 
   try:
-      npysc.scans(scans_dict=scansin)
+      npysc.Scans(scans_dict=scansin)
   except:
       pytest.failed('could not build scan collection')
 
@@ -39,7 +39,7 @@ def test_pcolor(mock_show):
     test pcolor plotting
     """
     scansin=load_scans(222,243)
-    s_obj=npysc.scans(scans_dict=scansin)
+    s_obj=npysc.Scans(scans_dict=scansin)
     s_obj.pcolor(x='l',y='coldtip')
 
 @patch('matplotlib.pyplot.show')
@@ -49,5 +49,5 @@ def test_waterfall(mock_show):
     test waterfall plotting
     """
     scansin=load_scans(222,243)
-    s_obj=npysc.scans(scans_dict=scansin)
+    s_obj=npysc.Scans(scans_dict=scansin)
     s_obj.waterfall(x='l',label_column='coldtip',offset=5000)

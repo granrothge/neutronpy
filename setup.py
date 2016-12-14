@@ -76,7 +76,7 @@ def setup_package():
                     package_data={'neutronpy': ['database/*.json', 'ui/*.ui']},
                     packages=['neutronpy', 'neutronpy.crystal', 'neutronpy.data', 'neutronpy.fileio',
                               'neutronpy.fileio.loaders', 'neutronpy.instrument', 'neutronpy.scattering',
-                              'neutronpy.lsfit','neutronpy.scancollection'],
+                              'neutronpy.lsfit'],
                     entry_points={"console_scripts": ["neutronpy=neutronpy.gui:launch"]}, )
 
     try:

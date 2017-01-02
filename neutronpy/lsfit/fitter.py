@@ -597,7 +597,7 @@ class Fitter(object):
         #plot data
         ax1.errorbar(xin,yin,yerr=errin,fmt='ro')
         # add text table
-        parmtext=build_param_table(function_str)
+        parmtext=self.build_param_table(function_str)
         ax3=plt.subplot2grid((2,3),(0,2),rowspan=2)
         ax3.text(0.1,0.5,parmtext)
         ax3.get_xaxis().set_visible(False)

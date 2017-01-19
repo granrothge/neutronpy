@@ -5,6 +5,9 @@ NeutronPy
 
     New releases may not be backwards compatibile. This software is in a fluid state and undergoes rapid changes. Bug fix and maintanence releases will generally be  backwards compatibile updates. Major number releases (x.0) could potentially break backwards compatibility, but users will be notified in the changelog.
 
+.. warning::
+    Official support for Python 2.6 and Python 3.3 has been discontinued. NeutronPy may continue to work with these versions, but automatic testing for these versions is no longer performed, therefore compatibility cannot be guaranteed.
+
 **TravisCI** |mastertravis| :: **Appveyor** |masterappveyor|
 
 **Code Climate** |climate| :: **Codecov** |coverage|
@@ -58,25 +61,26 @@ Requirements
 ------------
 The following packages are required to install this library:
 
-* ``Python >= 2.6 (incl. Python 3.3-3.5)``
+* ``Python >= 2.7 (incl. Python 3.4-3.5)``
 * ``numpy >= 1.8.0``
 * ``scipy >= 0.13.0``
-* ``lmfit >= 0.9.1`` (``==0.9.1`` for Python 2.6)
-* ``h5py`` (optional, file IO)
+* ``lmfit >= 0.9.4`` (``==0.9.4`` for Python 2.6)
 * ``matplotlib >= 1.3.0`` (optional, plotting)
-* ``nose >= 1.3.0`` (optional, tests)
+* ``h5py`` (optional, file IO)
+* ``pyqt5 >= 5.4.1`` (optional, gui)
+* ``pytest >= 3`` (optional, tests)
 
 Installation
 ------------
-It is recommended that you use `anaconda <>`_ and ``pip`` to install NeutronPy::
+It is recommended that you use `anaconda <>`_ or ``pip`` to install NeutronPy::
 
-    conda config --add channels mmcauliffe
-    conda install python nomkl numpy scipy h5py matplotlib pyqt5
+    conda install -c neutronpy neutronpy
+
+or::
+
     pip install neutronpy
 
-Note: the added channel is for pyqt5.
-
-The resolution calculator gui can be used after installation by executing ``neutronpy`` from the command-line.
+Note: the channel ``mmcauliffe`` is required for pyqt5, so that the resolution calculator gui can be used after installation by executing ``neutronpy`` from the command-line. See Installation for more detailed instructions.
 
 Documentation
 -------------

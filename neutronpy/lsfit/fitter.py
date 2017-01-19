@@ -6,12 +6,14 @@ import warnings
 from collections import namedtuple
 
 import numpy as np
-from lmfit import minimize, Parameters
+from lmfit import minimize, Parameters, Minimizer
+
 
 from .tools import residual_wrapper
+from .plot import PlotFit
 
 
-class Fitter(object):
+class Fitter(PlotFit):
     u"""Wrapper for LMFIT, which is a high-level extension for
     scipy.optimize.leastsq. Performs Non-Linear Least Squares fitting using
     the Levenberg-Marquardt method.
@@ -58,6 +60,10 @@ class Fitter(object):
 
     nofinitecheck : bool, optional
         Default: False
+
+    nan_policy : str, optional
+        Default: 'omit'. Determines how NaN values are handled: 'raise',
+        'propagate' or 'omit'.
 
     Notes
     -----
@@ -127,7 +133,7 @@ class Fitter(object):
 
     def __init__(self, residuals, derivatives=None, data=None, params0=None, parinfo=None, ftol=1e-10, xtol=1e-10,
                  gtol=1e-10, epsfcn=None, stepfactor=100.0, covtol=1e-14, maxiter=200, maxfev=None,
-                 nofinitecheck=False):
+                 nofinitecheck=False, nan_policy='omit'):
 
         self._m = 0
         self.result = namedtuple('result', [])
@@ -151,6 +157,7 @@ class Fitter(object):
         self.maxiter = maxiter
         self.maxfev = maxfev
         self.nofinitecheck = nofinitecheck
+        self.nan_policy = nan_policy
 
     def __call__(self, params0=None):
         if hasattr(self, 'params'):
@@ -365,6 +372,19 @@ class Fitter(object):
             raise ValueError
 
     @property
+    def nan_policy(self):
+        r"""Determines how NaN's are handled by minimizer. Default: 'omit'
+        """
+        return self._nan_policy
+
+    @nan_policy.setter
+    def nan_policy(self, value):
+        if isinstance(value, str):
+            self._nan_policy = value
+        else:
+            raise ValueError
+
+    @property
     def npar(self):
         r"""Number of parameters
         """
@@ -458,6 +478,8 @@ class Fitter(object):
         """
         return np.sqrt(np.diagonal(self.covar) * self.rchi2_min)
 
+
+
     def fit(self, params0):
         r"""Perform a fit with the provided parameters.
 
@@ -488,11 +510,13 @@ class Fitter(object):
         if np.all([not value.vary for value in p.values()]):
             raise Exception('All parameters are fixed!')
 
+        self.lmfit_minimizer = Minimizer(self.residuals, p, nan_policy=self.nan_policy, fcn_args=(self.data,))
+
         self.result.orignorm = np.sum(self.residuals(params0, self.data) ** 2)
 
-        result = minimize(self.residuals, p, Dfun=self.deriv, method='leastsq', ftol=self.ftol, xtol=self.xtol,
-                          gtol=self.gtol,
-                          maxfev=self.maxfev, epsfcn=self.epsfcn, factor=self.stepfactor, args=(self.data,), kws=None)
+        result = self.lmfit_minimizer.minimize(Dfun=self.deriv, method='leastsq', ftol=self.ftol,
+                                               xtol=self.xtol, gtol=self.gtol, maxfev=self.maxfev, epsfcn=self.epsfcn,
+                                               factor=self.stepfactor)
 
         self.result.bestnorm = result.chisqr
         self.result.redchi = result.redchi

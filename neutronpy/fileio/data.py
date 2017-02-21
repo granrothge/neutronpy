@@ -17,10 +17,10 @@ def load_data(files, filetype='auto', tols=1e-4, build_hkl=True, load_instrument
 
     filetype : str, optional
         Default: `'auto'`. Specify file type; Currently supported file types
-        are SPICE (HFIR), ICE and ICP (NIST), MAD (ILL), DAVE exported ascii
-        formats, GRASP exported ascii and HDF5 formats, and neutronpy exported
-        formats. By default the function will attempt to determine the
-        filetype automatically.
+        are `'SPICE'` (HFIR), `'ICE'` and `'ICP'` (NIST), `'MAD'` (ILL),
+        `'dcs_mslice'` DAVE exported ascii formats, GRASP exported ascii and
+        HDF5 formats, and neutronpy exported formats. By default the function
+        will attempt to determine the filetype automatically.
 
     tols : float or array_like
         Default: `1e-4`. A float or array of shape `(5,)` giving tolerances
@@ -45,7 +45,7 @@ def load_data(files, filetype='auto', tols=1e-4, build_hkl=True, load_instrument
                      'neutronpy': Neutronpy,
                      'spice': Spice}
 
-    if isinstance(files, str):
+    if not isinstance(files, (tuple, list)):
         files = (files,)
 
     for filename in files:
@@ -192,11 +192,11 @@ def detect_filetype(filename):
         The filetype of the given input file
 
     """
-    if filename[-3:] == 'nxs':
+    if filename[-3:].lower() == 'nxs':
         return 'grasp'
     elif (filename[-4:].lower() == 'iexy') or (filename[-3:].lower() == 'spe') or (filename[-3:].lower() == 'xye') or (filename[-4:] == 'xyie'):
         return 'dcs_mslice'
-    elif filename[-2:].lower() == 'h5' or filename[-3].lower() == 'npy':
+    elif filename[-2:].lower() == 'h5' or filename[-3:].lower() == 'npy':
         return 'neutronpy'
     else:
         with open(filename) as f:

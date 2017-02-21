@@ -9,6 +9,8 @@ from .plot import PlotMaterial
 from .sample import Sample
 from .structure_factors import NuclearStructureFactor, MagneticStructureFactor
 from .symmetry import SpaceGroup
+
+
 # from ..scattering.pattern import HKLGenerator
 
 
@@ -44,6 +46,9 @@ class MagneticUnitCell(Sample):
         a, b, c = unit_cell['lattice']['abc']
         alpha, beta, gamma = unit_cell['lattice']['abg']
         super(MagneticUnitCell, self).__init__(a, b, c, alpha, beta, gamma)
+
+    def __repr__(self):
+        return "MagneticUnitCell('{0}')".format(self.propagation_vector)
 
 
 class Material(Sample, NuclearStructureFactor, MagneticStructureFactor, PlotMaterial):
@@ -101,7 +106,13 @@ class Material(Sample, NuclearStructureFactor, MagneticStructureFactor, PlotMate
         Include Debye-Waller in calculation with anisotropic U
 
     'massNorm' : bool
-        Normalize calculations to mass of atoms
+        Normalize calculations to the square-root of the mass of atoms. This
+        is useful for the calculation of the coherent one-phonon inelastic
+        cross-section, which is dependent on a nuclear structure factor in
+        which the nuclear scattering length is normalized by the square-root
+        of the mass, *i.e.* :math:`\bar{b}_d/\sqrt{M_d}`, see Eq. 4.88 in
+        "Theory of neutron scattering from condensed matter, Volume 1" by
+        Stephen W. Lovesey.
 
     'formulaUnits' : float
         Number of formula units to use in the calculation
@@ -176,6 +187,8 @@ class Material(Sample, NuclearStructureFactor, MagneticStructureFactor, PlotMate
     """
 
     def __init__(self, crystal):
+        self.name = crystal['name']
+
         if 'formulaUnits' not in crystal:
             crystal['formulaUnits'] = 1.
 
@@ -248,6 +261,9 @@ class Material(Sample, NuclearStructureFactor, MagneticStructureFactor, PlotMate
 
         super(Material, self).__init__(a, b, c, alpha, beta, gamma, crystal['mosaic'], crystal['vmosaic'],
                                        crystal['dir'], crystal['u'], crystal['v'])
+
+    def __repr__(self):
+        return "Material('{0}')".format(self.name)
 
     @property
     def total_scattering_cross_section(self):

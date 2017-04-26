@@ -269,3 +269,4 @@ class Scans(object):
         plt.ylabel(y)
         plt.colorbar()
         plt.show(block=False)
+        return(fh)

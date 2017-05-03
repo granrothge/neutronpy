@@ -180,7 +180,7 @@ class Scans(object):
         maxs=self.func_col(col,np.max)
         return maxs
 
-    def pcolor(self, x, y, z='detector', clims=None, color_norm='linear', cmap='jet'):
+    def pcolor(self, x, y, z='detector', clims=None, color_norm='linear', cmap='jet',show_plot=True):
         r"""Create a false colormap for a coloction of scans.
 
         The y-direction is always what varies between scans.
@@ -268,5 +268,6 @@ class Scans(object):
         plt.xlabel(x)
         plt.ylabel(y)
         plt.colorbar()
-        plt.show(block=False)
+        if show_plot=True:
+           plt.show(block=False)
         return(fh)

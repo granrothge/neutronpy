@@ -269,5 +269,6 @@ class Scans(object):
         plt.ylabel(y)
         plt.colorbar()
         if show_plot:
+           plt.colorbar()
            plt.show(block=False)
         return(fh)

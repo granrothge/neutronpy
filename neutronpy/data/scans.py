@@ -66,7 +66,7 @@ class Scans(object):
         if self.scans is None:
             raise RuntimeError('There must be at lest one scan')
 
-    def waterfall(self, x='e', y='detector', label_column='h', offset=5, fmt='b-', legend=False):
+    def waterfall(self, x='e', y='detector', label_column='h', offset=5, fmt='b-', legend=False, show_plot=False):
         r"""Create a waterfall plot of all the scans in the collection
 
         Parameters
@@ -109,8 +109,8 @@ class Scans(object):
 
         if legend:
             plt.legend()
-
-        plt.show(block=False)
+        if show_plot:
+           plt.show(block=False)
         return(fh)
 
     def mean_col(self, col):

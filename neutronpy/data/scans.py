@@ -111,6 +111,7 @@ class Scans(object):
             plt.legend()
 
         plt.show(block=False)
+        return(fh)
 
     def mean_col(self, col):
         r"""Take the mean of a given column in every scan of the collection

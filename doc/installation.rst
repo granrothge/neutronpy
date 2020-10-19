@@ -9,13 +9,7 @@ The recommended method for installing `neutronpy <https://anaconda.org/neutronpy
 
     conda install -c neutronpy neutronpy
 
-``pyqt5`` is necessary for the neutronpy resolution gui executed from the command line with ``neutronpy``, but optional for all other features of neutronpy. ``pyqt5`` currently also requires Python 3.4. You can create a virtual environment with ``python=3.4``, activate it, and install neutronpy in the following way::
-
-    conda install -c neutronpy neutronpy
-    conda uninstall qt pyqt
-    conda install -c mmcauliffe pyqt5
-
-``matplotlib`` seems to force the installation of qt4, so it needs to be uninstalled to work correctly.
+``pyqt5`` is necessary for the neutronpy resolution gui executed from the command line with ``neutronpy``, but optional for all other features of neutronpy.
 
 Python Package Index - pip
 --------------------------
@@ -31,7 +25,7 @@ With ``pip`` installed, you can install the latest version of neutronpy with the
 
 To install a specific version of neutronpy, append ``=={version}`` to the above command, *e.g.*::
 
-    pip install neutronpy==1.0.1b0
+    pip install neutronpy==1.1.0b2
 
 New releases will be pushed to the package index. If you wish to install the development version, you will need to follow the instructions for installation from source.
 

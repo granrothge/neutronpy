@@ -6,11 +6,11 @@ import warnings
 from collections import namedtuple
 
 import numpy as np
-from lmfit import minimize, Parameters, Minimizer
 
+from lmfit import Minimizer, Parameters, minimize
 
-from .tools import residual_wrapper
 from .plot import PlotFit
+from .tools import residual_wrapper
 
 
 class Fitter(PlotFit):
@@ -129,6 +129,9 @@ class Fitter(PlotFit):
     Methods
     -------
     fit
+    plot
+    build_param_table
+    __call__
     """
 
     def __init__(self, residuals, derivatives=None, data=None, params0=None, parinfo=None, ftol=1e-10, xtol=1e-10,

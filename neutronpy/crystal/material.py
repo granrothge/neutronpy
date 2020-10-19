@@ -2,14 +2,14 @@
 r"""Material constructor
 
 """
-import numpy as np
 import neutronpy.constants as const
+import numpy as np
+
 from .atom import Atom, MagneticAtom
 from .plot import PlotMaterial
 from .sample import Sample
-from .structure_factors import NuclearStructureFactor, MagneticStructureFactor
+from .structure_factors import MagneticStructureFactor, NuclearStructureFactor
 from .symmetry import SpaceGroup
-
 
 # from ..scattering.pattern import HKLGenerator
 
@@ -163,6 +163,8 @@ class Material(Sample, NuclearStructureFactor, MagneticStructureFactor, PlotMate
     G
     Gstar
     Bmatrix
+    Umatrix
+    UBmatrix
     u
     v
 
@@ -178,6 +180,7 @@ class Material(Sample, NuclearStructureFactor, MagneticStructureFactor, PlotMate
     get_d_spacing
     get_q
     get_two_theta
+    get_phi
     N_atoms
     apply_scattering_rules
     find_equivalent_positions

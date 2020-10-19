@@ -1,14 +1,34 @@
 # -*- coding: utf-8 -*-
-r'''Define Triple Axis goniometer
+r"""Define Triple Axis goniometer
 
-'''
+"""
 import numpy as np
 
 
 class Goniometer(object):
-    r'''Defines a goniometer
+    r"""Class for defining a goniometer.
 
-    '''
+    Attributes
+    ----------
+    omega_rad
+    sgu_rad
+    sgl_rad
+    theta_rad
+    theta
+    N
+    M
+    Omega
+    Theta
+    T_c
+    T_Phi
+    R
+    U
+
+    Methods
+    -------
+    u_phi
+
+    """
 
     def __init__(self, u, theta_u, v, theta_v, sgu, sgl, omega=0):
         self.u = u
@@ -20,7 +40,11 @@ class Goniometer(object):
         self.sgu = sgu
         self.sgl = sgl
 
-        self.omega = 0
+        self.omega = omega
+
+    def __repr__(self):
+        return "Goniometer({0})".format(
+            ', '.join([str(getattr(self, key)) for key in ['u', 'theta_u', 'v', 'theta_v', 'sgu', 'sgl', 'omega']]))
 
     @property
     def omega_rad(self):
@@ -82,12 +106,30 @@ class Goniometer(object):
 
     @property
     def U(self):
-        r'''Defines an orientation matrix based on supplied goniometer angles
+        r"""Defines an orientation matrix based on supplied goniometer angles
 
-        '''
+        """
         return self.T_phi * np.linalg.inv(self.T_c)
 
     def u_phi(self, omega, chi, phi):
+        r"""Vector to help convert goniometer angles to lab reference frame orientation
+
+        Parameters
+        ----------
+        omega : float
+            Goniometer rotation axis in rad
+
+        chi : float
+            Goniometer upper tilt in rad
+
+        phi : float
+            Goniometer lower tilt angle in rad
+
+        Returns
+        -------
+        rot : array
+            Array to help convert between lab reference goniometer and sample reference
+        """
         return [np.cos(omega) * np.cos(chi) * np.cos(phi) - np.sin(omega) * np.sin(phi),
                 np.cos(omega) * np.cos(chi) * np.sin(phi) + np.sin(omega) * np.cos(phi),
                 np.cos(omega) * np.sin(chi)]

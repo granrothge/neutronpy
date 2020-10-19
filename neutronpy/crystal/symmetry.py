@@ -3,6 +3,7 @@ r"""Symmetry operations
 
 """
 import numpy as np
+
 from ..constants import symmetry
 
 space_groups = symmetry()['space_groups']
@@ -230,7 +231,7 @@ def get_str_from_generator(operations):
         for row in operation[:3, :]:
             element = ''
             for col, sym in zip(row[:3], syms):
-                element += signs[col] + np.abs(col) * sym
+                element += signs[int(col)] + np.abs(int(col)) * sym
 
             if row[3] == 0:
                 translate = ''

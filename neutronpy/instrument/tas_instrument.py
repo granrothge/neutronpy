@@ -1086,7 +1086,10 @@ class TripleAxisInstrument(GeneralInstrument, PlotInstrument):
         A5 = thetaa
         A6 = 2 * A5
 
-        A = np.squeeze(np.rad2deg([A1, A2, A3, A4, A5, A6]))
+        print(ss)
+
+        # added [0] because A3 and A4 are lists where the others are not.  This should be looked into in more detail
+        A = np.squeeze(np.rad2deg([A1, A2, A3[0], A4[0], A5, A6]))
 
         return [A, Q]
 

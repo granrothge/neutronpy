@@ -35,8 +35,13 @@ class Spice(Data):
                 if '#' in line and 'col_headers' not in line:
                     file_header.append(line.replace('\n', '').replace('# ', ''))
                 if 'col_headers' in line:
-                    args = next(f).split()
-                    col_headers = [head for head in args[1:]]
+                    spoe = line.split('=')
+                    if '\n' in spoe[-1]:
+                        line = next(f)
+                        while ('#' not in line):
+                            line = next(f)
+                        args = line.split()
+                        col_headers = [head for head in args[1:]]
 
         args = np.genfromtxt(filename, unpack=True, comments='#', dtype=np.float64)
 
